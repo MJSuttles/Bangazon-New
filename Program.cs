@@ -231,12 +231,61 @@ app.MapPost("/api/orders/confirm-payment/{orderId}", (BangazonDbContext db, int 
 
 // GET Orders by Customer
 
-app.MapGet("/api/orders/{id}", (BangazonDbContext db, string id) =>
+// app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
+// {
+//     Order? order = db.Orders
+//         .Where(o => o.Id == id)
+//         .Include(o => o.OrderItems)
+//         .ThenInclude(oi => oi.Product) // ✅ Include Product for SellerId reference
+//         .FirstOrDefault();
+
+//     if (order == null)
+//     {
+//         return Results.NotFound();
+//     }
+
+//     // ✅ Fetch Seller details using the SellerId from the Product table
+//     var orderDetails = new
+//     {
+//         order.Id,
+//         order.CustomerId,
+//         order.UserPaymentMethodId,
+//         order.IsComplete,
+//         order.OrderDate, // ✅ Include OrderDate in response
+//         OrderItems = order.OrderItems.Select(oi => new
+//         {
+//             oi.ProductId,
+//             oi.Quantity,
+//             ProductName = oi.Product.Name,
+//             Category = oi.Product.Category.Title,
+//             Price = oi.Product.Price,
+//             Image = oi.Product.Image,
+//             Seller = db.Users
+//                 .Where(u => u.Uid == oi.Product.SellerId)
+//                 .Select(s => new
+//                 {
+//                     s.Uid,
+//                     s.FirstName,
+//                     s.LastName,
+//                     s.Email,
+//                     s.Address,
+//                     s.City,
+//                     s.State,
+//                     s.Zip
+//                 })
+//                 .FirstOrDefault() // ✅ Get seller details for each product
+//         }).ToList() // ✅ Convert to list
+//     };
+
+//     return Results.Ok(orderDetails);
+// });
+
+app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
 {
     Order? order = db.Orders
-        .Where(o => o.CustomerId == id)
+        .Where(o => o.Id == id)
         .Include(o => o.OrderItems)
-        .ThenInclude(oi => oi.Product) // ✅ Include Product for SellerId reference
+        .ThenInclude(oi => oi.Product)
         .FirstOrDefault();
 
     if (order == null)
@@ -244,14 +293,14 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, string id) =>
         return Results.NotFound();
     }
 
-    // ✅ Fetch Seller details using the SellerId from the Product table
+    // ✅ Include OrderDate in response
     var orderDetails = new
     {
         order.Id,
         order.CustomerId,
         order.UserPaymentMethodId,
         order.IsComplete,
-        order.OrderDate, // ✅ Include OrderDate in response
+        order.OrderDate, // ✅ Ensure this is returned
         OrderItems = order.OrderItems.Select(oi => new
         {
             oi.ProductId,
@@ -273,8 +322,8 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, string id) =>
                     s.State,
                     s.Zip
                 })
-                .FirstOrDefault() // ✅ Get seller details for each product
-        }).ToList() // ✅ Convert to list
+                .FirstOrDefault()
+        }).ToList()
     };
 
     return Results.Ok(orderDetails);
