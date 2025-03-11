@@ -52,6 +52,19 @@ public class BangazonDbContext : DbContext
     .HasForeignKey(upm => upm.PaymentOptionId)
     .HasPrincipalKey(p => p.Id); // ✅ Correct reference
 
+    modelBuilder.Entity<OrderItem>()
+    .HasOne(oi => oi.Order)
+    .WithMany(o => o.OrderItems)
+    .HasForeignKey(oi => oi.OrderId)
+    .OnDelete(DeleteBehavior.Cascade);
+
+    modelBuilder.Entity<OrderItem>()
+    .HasOne(oi => oi.Product)
+    .WithMany(p => p.OrderItems)
+    .HasForeignKey(oi => oi.ProductId)
+    .OnDelete(DeleteBehavior.Cascade);
+
+
     // ✅ Seed Data
     modelBuilder.Entity<User>().HasData(new User[]
     {
@@ -141,40 +154,45 @@ public class BangazonDbContext : DbContext
     });
 
     modelBuilder.Entity<UserPaymentMethod>().HasData(new UserPaymentMethod[]
-{
-    new UserPaymentMethod { Id = 1, UserId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", PaymentOptionId = 1 },
-    new UserPaymentMethod { Id = 2, UserId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", PaymentOptionId = 2 },
-    new UserPaymentMethod { Id = 3, UserId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", PaymentOptionId = 3 },
-    new UserPaymentMethod { Id = 4, UserId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", PaymentOptionId = 1 },
-    new UserPaymentMethod { Id = 5, UserId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", PaymentOptionId = 2 },
-    new UserPaymentMethod { Id = 6, UserId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", PaymentOptionId = 3 }
-});
+    {
+      new UserPaymentMethod { Id = 1, UserId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", PaymentOptionId = 1 },
+      new UserPaymentMethod { Id = 2, UserId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", PaymentOptionId = 2 },
+      new UserPaymentMethod { Id = 3, UserId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", PaymentOptionId = 3 },
+      new UserPaymentMethod { Id = 4, UserId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", PaymentOptionId = 1 },
+      new UserPaymentMethod { Id = 5, UserId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", PaymentOptionId = 2 },
+      new UserPaymentMethod { Id = 6, UserId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", PaymentOptionId = 3 }
+    });
 
     modelBuilder.Entity<Order>().HasData(new Order[]
-{
-    new Order { Id = 1, CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", IsComplete = false, UserPaymentMethodId = 1, OrderDate = DateTime.UtcNow },
-    new Order { Id = 2, CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", IsComplete = true, UserPaymentMethodId = 2, OrderDate = DateTime.UtcNow.AddDays(-10) },
-    new Order { Id = 3, CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", IsComplete = true, UserPaymentMethodId = 3, OrderDate = DateTime.UtcNow.AddDays(-20) },
-    new Order { Id = 4, CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", IsComplete = false, UserPaymentMethodId = 4, OrderDate = DateTime.UtcNow },
-    new Order { Id = 5, CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", IsComplete = true, UserPaymentMethodId = 5, OrderDate = DateTime.UtcNow.AddDays(-5) },
-    new Order { Id = 6, CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", IsComplete = true, UserPaymentMethodId = 6, OrderDate = DateTime.UtcNow.AddDays(-15) }
-});
+  {
+      // Orders for Brian Suttles (Uid: 6Na5niFGCaUfZz7y9cjbFEq8twj1)
+      new Order { Id = 1, CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", IsComplete = false, UserPaymentMethodId = 1, OrderDate = DateTime.UtcNow },
+      new Order { Id = 2, CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", IsComplete = true, UserPaymentMethodId = 2, OrderDate = DateTime.UtcNow.AddDays(-8) },
+      new Order { Id = 3, CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1", IsComplete = true, UserPaymentMethodId = 3, OrderDate = DateTime.UtcNow.AddDays(-20) },
 
+      // Orders for Dayna Suttles (Uid: l4XlJweAr3USaFL4DW3h2PfIqAC3)
+      new Order { Id = 4, CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", IsComplete = false, UserPaymentMethodId = 4, OrderDate = DateTime.UtcNow },
+      new Order { Id = 5, CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", IsComplete = true, UserPaymentMethodId = 5, OrderDate = DateTime.UtcNow.AddDays(-12) },
+      new Order { Id = 6, CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3", IsComplete = true, UserPaymentMethodId = 6, OrderDate = DateTime.UtcNow.AddDays(-25) }
+  });
 
-    // Sample OrderItem Seed Data (associate with random products)
     modelBuilder.Entity<OrderItem>().HasData(new OrderItem[]
     {
-        // Order Items for user: 6Na5niFGCaUfZz7y9cjbFEq8twj1
-        new OrderItem { Id = 1, OrderId = 1, ProductId = 5, Quantity = 2, SellerId = "SellerA" },
-        new OrderItem { Id = 2, OrderId = 1, ProductId = 8, Quantity = 1, SellerId = "SellerB" },
-        new OrderItem { Id = 3, OrderId = 2, ProductId = 3, Quantity = 3, SellerId = "SellerC" },
-        new OrderItem { Id = 4, OrderId = 3, ProductId = 10, Quantity = 2, SellerId = "SellerA" },
+      // Order Items for Brian Suttles (purchasing from other users)
+      new OrderItem { Id = 1, OrderId = 1, ProductId = 12, Quantity = 2, SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1" },
+      new OrderItem { Id = 2, OrderId = 1, ProductId = 21, Quantity = 1, SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75" },
+      new OrderItem { Id = 3, OrderId = 2, ProductId = 33, Quantity = 3, SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0" },
+      new OrderItem { Id = 4, OrderId = 2, ProductId = 45, Quantity = 2, SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a" },
+      new OrderItem { Id = 5, OrderId = 3, ProductId = 39, Quantity = 1, SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0" },
+      new OrderItem { Id = 6, OrderId = 3, ProductId = 50, Quantity = 2, SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a" },
 
-        // Order Items for user: l4XlJweAr3USaFL4DW3h2PfIqAC3
-        new OrderItem { Id = 5, OrderId = 4, ProductId = 6, Quantity = 4, SellerId = "SellerB" },
-        new OrderItem { Id = 6, OrderId = 5, ProductId = 7, Quantity = 1, SellerId = "SellerC" },
-        new OrderItem { Id = 7, OrderId = 5, ProductId = 2, Quantity = 2, SellerId = "SellerA" },
-        new OrderItem { Id = 8, OrderId = 6, ProductId = 9, Quantity = 1, SellerId = "SellerB" }
+      // Order Items for Dayna Suttles (purchasing from other users)
+      new OrderItem { Id = 7, OrderId = 4, ProductId = 24, Quantity = 2, SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75" },
+      new OrderItem { Id = 8, OrderId = 4, ProductId = 34, Quantity = 1, SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0" },
+      new OrderItem { Id = 9, OrderId = 5, ProductId = 41, Quantity = 3, SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a" },
+      new OrderItem { Id = 10, OrderId = 5, ProductId = 48, Quantity = 2, SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a" },
+      new OrderItem { Id = 11, OrderId = 6, ProductId = 28, Quantity = 1, SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75" },
+      new OrderItem { Id = 12, OrderId = 6, ProductId = 32, Quantity = 2, SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0" }
     });
   }
 }
