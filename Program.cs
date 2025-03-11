@@ -293,14 +293,13 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
         return Results.NotFound();
     }
 
-    // ✅ Include OrderDate in response
     var orderDetails = new
     {
         order.Id,
         order.CustomerId,
         order.UserPaymentMethodId,
         order.IsComplete,
-        order.OrderDate, // ✅ Ensure this is returned
+        order.OrderDate,
         OrderItems = order.OrderItems.Select(oi => new
         {
             oi.ProductId,
@@ -411,6 +410,20 @@ app.MapGet("/api/products/latest", (BangazonDbContext db) =>
 
 
 // USER Calls
+
+// GET User
+app.MapGet("/api/user/{uid}", (BangazonDbContext db, string uid) =>
+{
+    User user = db.Users
+        .FirstOrDefault(u => u.Uid == uid);
+
+    if (user == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(user);
+});
 
 // Add User
 
