@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bangazon_New.Migrations
 {
     [DbContext(typeof(BangazonDbContext))]
-    partial class BangazonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250310230836_UpdateAllModels")]
+    partial class UpdateAllModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +109,7 @@ namespace Bangazon_New.Migrations
                             Id = 1,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 10, 23, 59, 16, 114, DateTimeKind.Utc).AddTicks(6840),
+                            OrderDate = new DateTime(2025, 3, 10, 23, 8, 36, 682, DateTimeKind.Utc).AddTicks(1220),
                             UserPaymentMethodId = 1
                         },
                         new
@@ -114,7 +117,7 @@ namespace Bangazon_New.Migrations
                             Id = 2,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 2, 23, 59, 16, 114, DateTimeKind.Utc).AddTicks(6840),
+                            OrderDate = new DateTime(2025, 2, 28, 23, 8, 36, 682, DateTimeKind.Utc).AddTicks(1230),
                             UserPaymentMethodId = 2
                         },
                         new
@@ -122,7 +125,7 @@ namespace Bangazon_New.Migrations
                             Id = 3,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 18, 23, 59, 16, 114, DateTimeKind.Utc).AddTicks(6850),
+                            OrderDate = new DateTime(2025, 2, 18, 23, 8, 36, 682, DateTimeKind.Utc).AddTicks(1230),
                             UserPaymentMethodId = 3
                         },
                         new
@@ -130,7 +133,7 @@ namespace Bangazon_New.Migrations
                             Id = 4,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 10, 23, 59, 16, 114, DateTimeKind.Utc).AddTicks(6850),
+                            OrderDate = new DateTime(2025, 3, 10, 23, 8, 36, 682, DateTimeKind.Utc).AddTicks(1230),
                             UserPaymentMethodId = 4
                         },
                         new
@@ -138,7 +141,7 @@ namespace Bangazon_New.Migrations
                             Id = 5,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 26, 23, 59, 16, 114, DateTimeKind.Utc).AddTicks(6850),
+                            OrderDate = new DateTime(2025, 3, 5, 23, 8, 36, 682, DateTimeKind.Utc).AddTicks(1240),
                             UserPaymentMethodId = 5
                         },
                         new
@@ -146,7 +149,7 @@ namespace Bangazon_New.Migrations
                             Id = 6,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 13, 23, 59, 16, 114, DateTimeKind.Utc).AddTicks(6850),
+                            OrderDate = new DateTime(2025, 2, 23, 23, 8, 36, 682, DateTimeKind.Utc).AddTicks(1240),
                             UserPaymentMethodId = 6
                         });
                 });
@@ -185,97 +188,65 @@ namespace Bangazon_New.Migrations
                         {
                             Id = 1,
                             OrderId = 1,
-                            ProductId = 12,
+                            ProductId = 5,
                             Quantity = 2,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "SellerA"
                         },
                         new
                         {
                             Id = 2,
                             OrderId = 1,
-                            ProductId = 21,
+                            ProductId = 8,
                             Quantity = 1,
-                            SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75"
+                            SellerId = "SellerB"
                         },
                         new
                         {
                             Id = 3,
                             OrderId = 2,
-                            ProductId = 33,
+                            ProductId = 3,
                             Quantity = 3,
-                            SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0"
+                            SellerId = "SellerC"
                         },
                         new
                         {
                             Id = 4,
-                            OrderId = 2,
-                            ProductId = 45,
+                            OrderId = 3,
+                            ProductId = 10,
                             Quantity = 2,
-                            SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a"
+                            SellerId = "SellerA"
                         },
                         new
                         {
                             Id = 5,
-                            OrderId = 3,
-                            ProductId = 39,
-                            Quantity = 1,
-                            SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0"
+                            OrderId = 4,
+                            ProductId = 6,
+                            Quantity = 4,
+                            SellerId = "SellerB"
                         },
                         new
                         {
                             Id = 6,
-                            OrderId = 3,
-                            ProductId = 50,
-                            Quantity = 2,
-                            SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a"
+                            OrderId = 5,
+                            ProductId = 7,
+                            Quantity = 1,
+                            SellerId = "SellerC"
                         },
                         new
                         {
                             Id = 7,
-                            OrderId = 4,
-                            ProductId = 24,
+                            OrderId = 5,
+                            ProductId = 2,
                             Quantity = 2,
-                            SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75"
+                            SellerId = "SellerA"
                         },
                         new
                         {
                             Id = 8,
-                            OrderId = 4,
-                            ProductId = 34,
-                            Quantity = 1,
-                            SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            OrderId = 5,
-                            ProductId = 41,
-                            Quantity = 3,
-                            SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            OrderId = 5,
-                            ProductId = 48,
-                            Quantity = 2,
-                            SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a"
-                        },
-                        new
-                        {
-                            Id = 11,
                             OrderId = 6,
-                            ProductId = 28,
+                            ProductId = 9,
                             Quantity = 1,
-                            SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            OrderId = 6,
-                            ProductId = 32,
-                            Quantity = 2,
-                            SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0"
+                            SellerId = "SellerB"
                         });
                 });
 
