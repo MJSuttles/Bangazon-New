@@ -412,7 +412,7 @@ app.MapGet("/api/products/latest", (BangazonDbContext db) =>
 // USER Calls
 
 // GET User
-app.MapGet("/api/user/{uid}", (BangazonDbContext db, string uid) =>
+app.MapGet("/api/users/{uid}", (BangazonDbContext db, string uid) =>
 {
     User user = db.Users
         .FirstOrDefault(u => u.Uid == uid);
@@ -425,11 +425,11 @@ app.MapGet("/api/user/{uid}", (BangazonDbContext db, string uid) =>
     return Results.Ok(user);
 });
 
-// Add User
+// Checkuser
 
-app.MapGet("/api/checkuser/{userId}", (BangazonDbContext db, string userId) =>
+app.MapGet("/api/checkuser/{uid}", (BangazonDbContext db, string uid) =>
 {
-    var user = db.Users.FirstOrDefault(u => u.Uid == userId);
+    var user = db.Users.FirstOrDefault(u => u.Uid == uid);
 
     if (user == null)
     {
@@ -444,11 +444,9 @@ app.MapGet("/api/checkuser/{userId}", (BangazonDbContext db, string userId) =>
     return Results.Ok(user);
 });
 
-app.MapPost("/api/register", (BangazonDbContext db, User user) =>
+app.MapGet("/api/users", (BangazonDbContext db) =>
 {
-    db.Users.Add(user);
-    db.SaveChanges();
-    return Results.Created($"/users/{user.Uid}", user);
+    return db.Users.ToList();
 });
 
 // GET User Details
@@ -464,6 +462,45 @@ app.MapGet("/api/users/userdetails/{uid}", (BangazonDbContext db, string uid) =>
     }
 
     return Results.Ok(user);
+});
+
+// Register User
+app.MapPost("/api/users", async (BangazonDbContext db, User user) =>
+{
+    var existingUser = await db.Users.FindAsync(user.Uid);
+    if (existingUser != null) return Results.BadRequest("User already exists.");
+
+    try
+    {
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+        return Results.Created($"/users/{user.Uid}", user);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem($"Error registering user: {ex.Message}");
+    }
+});
+
+// API to register user after completing the registration form
+app.MapPost("/api/users/register", async (BangazonDbContext db, User user) =>
+{
+    var existingUser = await db.Users.FindAsync(user.Uid);
+    if (existingUser == null)
+    {
+        return Results.NotFound("User not found. Please create an account first.");
+    }
+
+    // Update existing user with additional registration details
+    existingUser.FirstName = user.FirstName;
+    existingUser.LastName = user.LastName;
+    existingUser.Address = user.Address;
+    existingUser.City = user.City;
+    existingUser.State = user.State;
+    existingUser.Zip = user.Zip;
+
+    await db.SaveChangesAsync();
+    return Results.Ok(existingUser);
 });
 
 // GET Seller Dashboard
