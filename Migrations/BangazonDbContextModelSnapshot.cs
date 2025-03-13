@@ -106,7 +106,7 @@ namespace Bangazon_New.Migrations
                             Id = 1,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 13, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7800),
+                            OrderDate = new DateTime(2025, 3, 13, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6750),
                             UserPaymentMethodId = 1
                         },
                         new
@@ -114,7 +114,7 @@ namespace Bangazon_New.Migrations
                             Id = 2,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 5, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7800),
+                            OrderDate = new DateTime(2025, 3, 5, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 2
                         },
                         new
@@ -122,7 +122,7 @@ namespace Bangazon_New.Migrations
                             Id = 3,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 21, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 2, 21, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 3
                         },
                         new
@@ -130,7 +130,7 @@ namespace Bangazon_New.Migrations
                             Id = 4,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 13, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 3, 13, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 4
                         },
                         new
@@ -138,7 +138,7 @@ namespace Bangazon_New.Migrations
                             Id = 5,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 1, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 3, 1, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 5
                         },
                         new
@@ -146,7 +146,7 @@ namespace Bangazon_New.Migrations
                             Id = 6,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 16, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 2, 16, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6770),
                             UserPaymentMethodId = 6
                         });
                 });
@@ -187,7 +187,7 @@ namespace Bangazon_New.Migrations
                             OrderId = 1,
                             ProductId = 12,
                             Quantity = 2,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -385,7 +385,7 @@ namespace Bangazon_New.Migrations
                             Name = "Dark Side of the Moon",
                             Price = 51.99m,
                             Quantity = 3,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -397,7 +397,7 @@ namespace Bangazon_New.Migrations
                             Name = "Abbey Road",
                             Price = 38.50m,
                             Quantity = 7,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -409,7 +409,7 @@ namespace Bangazon_New.Migrations
                             Name = "Jagged Little Pill",
                             Price = 15.99m,
                             Quantity = 4,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -421,7 +421,7 @@ namespace Bangazon_New.Migrations
                             Name = "Nevermind",
                             Price = 29.99m,
                             Quantity = 6,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -433,7 +433,7 @@ namespace Bangazon_New.Migrations
                             Name = "21",
                             Price = 19.99m,
                             Quantity = 3,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -445,7 +445,7 @@ namespace Bangazon_New.Migrations
                             Name = "Born This Way",
                             Price = 22.99m,
                             Quantity = 2,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -457,7 +457,7 @@ namespace Bangazon_New.Migrations
                             Name = "Thriller",
                             Price = 45.00m,
                             Quantity = 9,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -469,7 +469,7 @@ namespace Bangazon_New.Migrations
                             Name = "The Wall",
                             Price = 50.00m,
                             Quantity = 4,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -481,7 +481,7 @@ namespace Bangazon_New.Migrations
                             Name = "Back in Black",
                             Price = 39.99m,
                             Quantity = 8,
-                            SellerId = "BCyBV6WJpTZcPG0b0WMfr8vJM1B3"
+                            SellerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1"
                         },
                         new
                         {
@@ -505,7 +505,7 @@ namespace Bangazon_New.Migrations
                             Name = "1989",
                             Price = 42.99m,
                             Quantity = 6,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -517,7 +517,7 @@ namespace Bangazon_New.Migrations
                             Name = "Golden Hour",
                             Price = 35.99m,
                             Quantity = 4,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -529,7 +529,7 @@ namespace Bangazon_New.Migrations
                             Name = "Fearless (Taylor's Version)",
                             Price = 36.50m,
                             Quantity = 7,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -541,7 +541,7 @@ namespace Bangazon_New.Migrations
                             Name = "Speak Now (Taylor's Version)",
                             Price = 45.99m,
                             Quantity = 3,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -553,7 +553,7 @@ namespace Bangazon_New.Migrations
                             Name = "Evermore",
                             Price = 38.00m,
                             Quantity = 6,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -565,7 +565,7 @@ namespace Bangazon_New.Migrations
                             Name = "Midnights",
                             Price = 39.50m,
                             Quantity = 5,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -577,7 +577,7 @@ namespace Bangazon_New.Migrations
                             Name = "Folklore",
                             Price = 37.99m,
                             Quantity = 4,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -589,7 +589,7 @@ namespace Bangazon_New.Migrations
                             Name = "Reputation",
                             Price = 41.99m,
                             Quantity = 8,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {
@@ -601,7 +601,7 @@ namespace Bangazon_New.Migrations
                             Name = "Red (Taylor's Version)",
                             Price = 49.99m,
                             Quantity = 9,
-                            SellerId = "LoBA4EB98KfPtTZ7t8hE2xlbURw1"
+                            SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31"
                         },
                         new
                         {

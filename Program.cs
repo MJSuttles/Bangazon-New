@@ -231,7 +231,9 @@ app.MapGet("/api/orders/sellers/{sellerId}", (BangazonDbContext db, string selle
 
 app.MapPost("/api/orders/{uid}", (BangazonDbContext db, string uid) =>
 {
-    Console.WriteLine($"{uid} is entered.");
+    Cart cart = db.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == uid);
+
+    Console.WriteLine($"My cart {cart}");
 });
 
 // GET Orders by Customer
@@ -356,7 +358,7 @@ app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
         return Results.NotFound();
     }
 
-    // ✅ Fetch seller details based on the SellerId matching Users.Uid
+    // ✅ Fetch seller details from Users table
     var seller = db.Users.FirstOrDefault(u => u.Uid == product.SellerId);
 
     return Results.Ok(new
@@ -368,11 +370,10 @@ app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
         product.Image,
         product.Description,
         product.Quantity,
-        Category = product.Category.Title, // ✅ Category name
-        Seller = seller != null ? $"{seller.FirstName} {seller.LastName}" : "Unknown" // ✅ Seller's full name
+        Category = product.Category.Title,
+        Seller = seller != null ? $"{seller.FirstName} {seller.LastName}" : "Unknown" // ✅ Fix seller name issue
     });
 });
-
 
 // GET All Products
 
