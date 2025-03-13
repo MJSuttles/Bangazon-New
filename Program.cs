@@ -175,58 +175,63 @@ app.MapGet("/api/orders/sellers/{sellerId}", (BangazonDbContext db, string selle
 
 // POST then Complete Order (Moves Items to Order and Clears the Cart)
 
-app.MapPost("/api/orders/complete", (BangazonDbContext db, string userId) =>
+// app.MapPost("/api/orders/complete", (BangazonDbContext db, string userId) =>
+// {
+//     Cart cart = db.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == userId);
+
+//     if (cart == null || !cart.CartItems.Any())
+//     {
+//         return Results.BadRequest("Cart is empty");
+//     }
+
+//     // ✅ Order starts with isComplete = false and sets OrderDate
+//     Order order = new Order
+//     {
+//         CustomerId = userId,
+//         UserPaymentMethodId = cart.UserPaymentMethodId,
+//         IsComplete = false, // ✅ Order is not complete until payment is confirmed
+//         OrderDate = DateTime.UtcNow // ✅ Add OrderDate when order is created
+//     };
+
+//     db.Orders.Add(order);
+//     db.SaveChanges();
+
+//     List<OrderItem> orderItems = cart.CartItems.Select(ci => new OrderItem
+//     {
+//         OrderId = order.Id,
+//         ProductId = ci.ProductId,
+//         Quantity = ci.Quantity,
+//         SellerId = db.Products.FirstOrDefault(p => p.Id == ci.ProductId)?.SellerId ?? ""
+//     }).ToList();
+
+//     db.OrderItems.AddRange(orderItems);
+//     db.CartItems.RemoveRange(cart.CartItems); // Clears cart items
+//     db.Carts.Remove(cart); // Removes cart after checkout
+//     db.SaveChanges();
+
+//     return Results.Ok(order);
+// });
+
+// // ✅ Separate API call to mark order as complete when payment is provided
+// app.MapPost("/api/orders/confirm-payment/{orderId}", (BangazonDbContext db, int orderId) =>
+// {
+//     Order order = db.Orders.FirstOrDefault(o => o.Id == orderId);
+
+//     if (order == null)
+//     {
+//         return Results.NotFound("Order not found.");
+//     }
+
+//     // ✅ Change isComplete to true once payment is confirmed
+//     order.IsComplete = true;
+//     db.SaveChanges();
+
+//     return Results.Ok(order);
+// });
+
+app.MapPost("/api/orders/{uid}", (BangazonDbContext db, string uid) =>
 {
-    Cart cart = db.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == userId);
-
-    if (cart == null || !cart.CartItems.Any())
-    {
-        return Results.BadRequest("Cart is empty");
-    }
-
-    // ✅ Order starts with isComplete = false and sets OrderDate
-    Order order = new Order
-    {
-        CustomerId = userId,
-        UserPaymentMethodId = cart.UserPaymentMethodId,
-        IsComplete = false, // ✅ Order is not complete until payment is confirmed
-        OrderDate = DateTime.UtcNow // ✅ Add OrderDate when order is created
-    };
-
-    db.Orders.Add(order);
-    db.SaveChanges();
-
-    List<OrderItem> orderItems = cart.CartItems.Select(ci => new OrderItem
-    {
-        OrderId = order.Id,
-        ProductId = ci.ProductId,
-        Quantity = ci.Quantity,
-        SellerId = db.Products.FirstOrDefault(p => p.Id == ci.ProductId)?.SellerId ?? ""
-    }).ToList();
-
-    db.OrderItems.AddRange(orderItems);
-    db.CartItems.RemoveRange(cart.CartItems); // Clears cart items
-    db.Carts.Remove(cart); // Removes cart after checkout
-    db.SaveChanges();
-
-    return Results.Ok(order);
-});
-
-// ✅ Separate API call to mark order as complete when payment is provided
-app.MapPost("/api/orders/confirm-payment/{orderId}", (BangazonDbContext db, int orderId) =>
-{
-    Order order = db.Orders.FirstOrDefault(o => o.Id == orderId);
-
-    if (order == null)
-    {
-        return Results.NotFound("Order not found.");
-    }
-
-    // ✅ Change isComplete to true once payment is confirmed
-    order.IsComplete = true;
-    db.SaveChanges();
-
-    return Results.Ok(order);
+    Console.WriteLine($"{uid} is entered.");
 });
 
 // GET Orders by Customer
