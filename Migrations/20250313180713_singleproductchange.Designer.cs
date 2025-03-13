@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bangazon_New.Migrations
 {
     [DbContext(typeof(BangazonDbContext))]
-    partial class BangazonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250313180713_singleproductchange")]
+    partial class singleproductchange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +109,7 @@ namespace Bangazon_New.Migrations
                             Id = 1,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 13, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7800),
+                            OrderDate = new DateTime(2025, 3, 13, 18, 7, 12, 823, DateTimeKind.Utc).AddTicks(150),
                             UserPaymentMethodId = 1
                         },
                         new
@@ -114,7 +117,7 @@ namespace Bangazon_New.Migrations
                             Id = 2,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 5, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7800),
+                            OrderDate = new DateTime(2025, 3, 5, 18, 7, 12, 823, DateTimeKind.Utc).AddTicks(150),
                             UserPaymentMethodId = 2
                         },
                         new
@@ -122,7 +125,7 @@ namespace Bangazon_New.Migrations
                             Id = 3,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 21, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 2, 21, 18, 7, 12, 823, DateTimeKind.Utc).AddTicks(160),
                             UserPaymentMethodId = 3
                         },
                         new
@@ -130,7 +133,7 @@ namespace Bangazon_New.Migrations
                             Id = 4,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 13, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 3, 13, 18, 7, 12, 823, DateTimeKind.Utc).AddTicks(160),
                             UserPaymentMethodId = 4
                         },
                         new
@@ -138,7 +141,7 @@ namespace Bangazon_New.Migrations
                             Id = 5,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 1, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 3, 1, 18, 7, 12, 823, DateTimeKind.Utc).AddTicks(160),
                             UserPaymentMethodId = 5
                         },
                         new
@@ -146,7 +149,7 @@ namespace Bangazon_New.Migrations
                             Id = 6,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 16, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 2, 16, 18, 7, 12, 823, DateTimeKind.Utc).AddTicks(160),
                             UserPaymentMethodId = 6
                         });
                 });

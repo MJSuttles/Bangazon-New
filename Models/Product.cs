@@ -16,6 +16,7 @@ public class Product
   public int CategoryId { get; set; }
   public string SellerId { get; set; }
   public List<OrderItem> OrderItems { get; set; }
+  public List<User> Users { get; set; }
   public CartItem CartItem { get; set; }
   public Category Category { get; set; }
 }
