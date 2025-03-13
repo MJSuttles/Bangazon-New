@@ -342,7 +342,7 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
 
 app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
 {
-    Product product = db.Products
+    var product = db.Products
         .Include(p => p.Category)
         .FirstOrDefault(p => p.Id == id);
 
@@ -351,8 +351,23 @@ app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
         return Results.NotFound();
     }
 
-    return Results.Ok(product);
+    // ✅ Fetch seller details based on the SellerId matching Users.Uid
+    var seller = db.Users.FirstOrDefault(u => u.Uid == product.SellerId);
+
+    return Results.Ok(new
+    {
+        product.Id,
+        product.Name,
+        product.IsAvailable,
+        product.Price,
+        product.Image,
+        product.Description,
+        product.Quantity,
+        Category = product.Category.Title, // ✅ Category name
+        Seller = seller != null ? $"{seller.FirstName} {seller.LastName}" : "Unknown" // ✅ Seller's full name
+    });
 });
+
 
 // GET All Products
 
@@ -412,7 +427,7 @@ app.MapGet("/api/products/latest", (BangazonDbContext db) =>
 // USER Calls
 
 // GET User
-app.MapGet("/api/user/{uid}", (BangazonDbContext db, string uid) =>
+app.MapGet("/api/users/{uid}", (BangazonDbContext db, string uid) =>
 {
     User user = db.Users
         .FirstOrDefault(u => u.Uid == uid);

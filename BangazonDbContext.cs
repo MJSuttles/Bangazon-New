@@ -64,6 +64,11 @@ public class BangazonDbContext : DbContext
     .HasForeignKey(oi => oi.ProductId)
     .OnDelete(DeleteBehavior.Cascade);
 
+    modelBuilder.Entity<Product>()
+    .HasOne<User>()  // ✅ Ensure Seller is properly linked
+    .WithMany()
+    .HasForeignKey(p => p.SellerId);
+
 
     // ✅ Seed Data
     modelBuilder.Entity<User>().HasData(new User[]
