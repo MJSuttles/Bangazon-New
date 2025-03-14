@@ -129,7 +129,7 @@ namespace Bangazon_New.Migrations
                 columns: new[] { "Id", "OrderId", "ProductId", "Quantity", "SellerId" },
                 values: new object[,]
                 {
-                    { 1, 1, 12, 2, "LoBA4EB98KfPtTZ7t8hE2xlbURw1" },
+                    { 1, 1, 12, 2, "l4XlJweAr3USaFL4DW3h2PfIqAC31" },
                     { 2, 1, 21, 1, "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75" },
                     { 3, 2, 33, 3, "fa80e4a1-53b7-4784-ab59-6574dea65bb0" },
                     { 4, 2, 45, 2, "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a" },
@@ -218,7 +218,7 @@ namespace Bangazon_New.Migrations
                 keyColumn: "Id",
                 keyValue: 9,
                 columns: new[] { "OrderId", "ProductId", "Quantity", "SellerId" },
-                values: new object[] { 7, 12, 2, "LoBA4EB98KfPtTZ7t8hE2xlbURw1" });
+                values: new object[] { 7, 12, 2, "l4XlJweAr3USaFL4DW3h2PfIqAC31" });
 
             migrationBuilder.UpdateData(
                 table: "OrderItems",

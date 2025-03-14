@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bangazon_New.Migrations
 {
     [DbContext(typeof(BangazonDbContext))]
-    [Migration("20250313182321_ChangedSelleronProduct")]
-    partial class ChangedSelleronProduct
+    [Migration("20250313205330_AddedSellerIdtoProduct")]
+    partial class AddedSellerIdtoProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,7 +109,7 @@ namespace Bangazon_New.Migrations
                             Id = 1,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 13, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7800),
+                            OrderDate = new DateTime(2025, 3, 13, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6750),
                             UserPaymentMethodId = 1
                         },
                         new
@@ -117,7 +117,7 @@ namespace Bangazon_New.Migrations
                             Id = 2,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 5, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7800),
+                            OrderDate = new DateTime(2025, 3, 5, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 2
                         },
                         new
@@ -125,7 +125,7 @@ namespace Bangazon_New.Migrations
                             Id = 3,
                             CustomerId = "6Na5niFGCaUfZz7y9cjbFEq8twj1",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 21, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 2, 21, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 3
                         },
                         new
@@ -133,7 +133,7 @@ namespace Bangazon_New.Migrations
                             Id = 4,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = false,
-                            OrderDate = new DateTime(2025, 3, 13, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 3, 13, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 4
                         },
                         new
@@ -141,7 +141,7 @@ namespace Bangazon_New.Migrations
                             Id = 5,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 3, 1, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 3, 1, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6760),
                             UserPaymentMethodId = 5
                         },
                         new
@@ -149,7 +149,7 @@ namespace Bangazon_New.Migrations
                             Id = 6,
                             CustomerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3",
                             IsComplete = true,
-                            OrderDate = new DateTime(2025, 2, 16, 18, 23, 21, 220, DateTimeKind.Utc).AddTicks(7810),
+                            OrderDate = new DateTime(2025, 2, 16, 20, 53, 30, 25, DateTimeKind.Utc).AddTicks(6770),
                             UserPaymentMethodId = 6
                         });
                 });

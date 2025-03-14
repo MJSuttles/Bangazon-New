@@ -36,7 +36,6 @@ public class UserPaymentMethod
   [ForeignKey("UserId")]
   public User User { get; set; }  // ✅ Relationship to User
 
-  [Required]
   public int PaymentOptionId { get; set; }  // ✅ Must match PaymentOption.Id
 
   [ForeignKey("PaymentOptionId")]
