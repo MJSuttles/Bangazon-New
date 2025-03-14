@@ -74,30 +74,34 @@ app.MapGet("/api/cart/{userId}", (BangazonDbContext db, string userId) =>
 
 // Add to Cart
 
-app.MapPost("/api/cart/add", (BangazonDbContext db, string userId, int productId, int quantity) =>
+app.MapPost("/api/cart/add", async (BangazonDbContext db, AddToCartRequest request) =>
 {
-    var cart = db.Carts.FirstOrDefault(c => c.UserId == userId);
-
-    if (cart == null)
+    if (string.IsNullOrEmpty(request.UserId) || request.ProductId <= 0 || request.Quantity <= 0)
     {
-        cart = new Cart { UserId = userId };
-        db.Carts.Add(cart);
-        db.SaveChanges();
+        return Results.BadRequest("Invalid request data.");
     }
 
-    var cartItem = db.CartItems.FirstOrDefault(ci => ci.CartId == cart.Id && ci.ProductId == productId);
+    var cart = db.Carts.FirstOrDefault(c => c.UserId == request.UserId);
+    if (cart == null)
+    {
+        cart = new Cart { UserId = request.UserId };
+        db.Carts.Add(cart);
+        await db.SaveChangesAsync();
+    }
 
+    var cartItem = db.CartItems.FirstOrDefault(ci => ci.CartId == cart.Id && ci.ProductId == request.ProductId);
     if (cartItem == null)
     {
-        cartItem = new CartItem { CartId = cart.Id, ProductId = productId, Quantity = quantity };
+        cartItem = new CartItem { CartId = cart.Id, ProductId = request.ProductId, Quantity = request.Quantity };
         db.CartItems.Add(cartItem);
     }
     else
     {
-        cartItem.Quantity += quantity;
+        cartItem.Quantity += request.Quantity;
+        db.CartItems.Update(cartItem);
     }
 
-    db.SaveChanges();
+    await db.SaveChangesAsync();
     return Results.Ok(cart);
 });
 
