@@ -74,22 +74,24 @@ app.MapGet("/api/cart/{userId}", (BangazonDbContext db, string userId) =>
 
 // Add to Cart
 
-app.MapPost("/api/cart/add", async (BangazonDbContext db, AddToCartRequest request) =>
+app.MapPost("/api/cart/add", (BangazonDbContext db, AddToCartRequest request) =>
 {
-    if (string.IsNullOrEmpty(request.UserId) || request.ProductId <= 0 || request.Quantity <= 0)
+    if (request == null || string.IsNullOrEmpty(request.UserId) || request.ProductId <= 0 || request.Quantity <= 0)
     {
         return Results.BadRequest("Invalid request data.");
     }
 
     var cart = db.Carts.FirstOrDefault(c => c.UserId == request.UserId);
+
     if (cart == null)
     {
         cart = new Cart { UserId = request.UserId };
         db.Carts.Add(cart);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
     }
 
     var cartItem = db.CartItems.FirstOrDefault(ci => ci.CartId == cart.Id && ci.ProductId == request.ProductId);
+
     if (cartItem == null)
     {
         cartItem = new CartItem { CartId = cart.Id, ProductId = request.ProductId, Quantity = request.Quantity };
@@ -98,12 +100,12 @@ app.MapPost("/api/cart/add", async (BangazonDbContext db, AddToCartRequest reque
     else
     {
         cartItem.Quantity += request.Quantity;
-        db.CartItems.Update(cartItem);
     }
 
-    await db.SaveChangesAsync();
+    db.SaveChanges();
     return Results.Ok(cart);
 });
+
 
 // Add Payment Method to Cart
 
@@ -253,6 +255,8 @@ app.MapPost("/api/orders/confirm-payment/{orderId}", (BangazonDbContext db, int 
     return Results.Ok(order);
 });
 
+
+
 // app.MapPost("/api/orders/{uid}", (BangazonDbContext db, string uid) =>
 // {
 //     Cart cart = db.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == uid);
@@ -311,20 +315,20 @@ app.MapPost("/api/orders/confirm-payment/{orderId}", (BangazonDbContext db, int 
 //     return Results.Ok(orderDetails);
 // });
 
-app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
+app.MapGet("/api/orders/user/{customerId}", (BangazonDbContext db, string customerId) =>
 {
-    Order? order = db.Orders
-        .Where(o => o.Id == id)
+    var orders = db.Orders
+        .Where(o => o.CustomerId == customerId) // ✅ Fetch orders by CustomerId (User ID)
         .Include(o => o.OrderItems)
         .ThenInclude(oi => oi.Product)
-        .FirstOrDefault();
+        .ToList();
 
-    if (order == null)
+    if (!orders.Any())
     {
-        return Results.NotFound();
+        return Results.NotFound("No orders found for this user.");
     }
 
-    var orderDetails = new
+    var orderDetails = orders.Select(order => new
     {
         order.Id,
         order.CustomerId,
@@ -354,10 +358,11 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
                 })
                 .FirstOrDefault()
         }).ToList()
-    };
+    }).ToList();
 
     return Results.Ok(orderDetails);
 });
+
 
 // ORDERITEM Calls
 

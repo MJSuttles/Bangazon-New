@@ -65,12 +65,11 @@ public class BangazonDbContext : DbContext
     .OnDelete(DeleteBehavior.Cascade);
 
     modelBuilder.Entity<Product>()
-    .HasOne<User>()
-    .WithMany()
-    .HasForeignKey(p => p.SellerId)
-    .HasPrincipalKey(u => u.Uid)  // ✅ Ensure SellerId references Users.Uid
-    .OnDelete(DeleteBehavior.Cascade);
-
+    .Property(p => p.SellerId)
+    .IsRequired(); // ✅ Keep SellerId required but NOT a foreign key
+    modelBuilder.Entity<Product>()
+        .Property(p => p.SellerId)
+        .IsRequired(); // ✅ Keep SellerId required but NOT a foreign key
 
     // ✅ Seed Data
     modelBuilder.Entity<User>().HasData(new User[]
@@ -186,7 +185,7 @@ public class BangazonDbContext : DbContext
     modelBuilder.Entity<OrderItem>().HasData(new OrderItem[]
     {
       // Order Items for Brian Suttles (purchasing from other users)
-      new OrderItem { Id = 1, OrderId = 1, ProductId = 12, Quantity = 2, SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC31" },
+      new OrderItem { Id = 1, OrderId = 1, ProductId = 12, Quantity = 2, SellerId = "l4XlJweAr3USaFL4DW3h2PfIqAC3" },
       new OrderItem { Id = 2, OrderId = 1, ProductId = 21, Quantity = 1, SellerId = "9a53d726-a2cd-42df-9d0f-5ae1a45c1c75" },
       new OrderItem { Id = 3, OrderId = 2, ProductId = 33, Quantity = 3, SellerId = "fa80e4a1-53b7-4784-ab59-6574dea65bb0" },
       new OrderItem { Id = 4, OrderId = 2, ProductId = 45, Quantity = 2, SellerId = "2fe66f47-afdb-4a83-9dff-2d8e60b51b7a" },
