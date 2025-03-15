@@ -107,25 +107,39 @@ app.MapPost("/api/cart/add", async (BangazonDbContext db, AddToCartRequest reque
 
 // Add Payment Method to Cart
 
-app.MapPost("/api/cart/add-payment", (BangazonDbContext db, string userId, int paymentMethodId) =>
+app.MapPost("/api/cart/add-payment", async (HttpContext context, BangazonDbContext db) =>
 {
-    Cart cart = db.Carts.FirstOrDefault(c => c.UserId == userId);
-
-    if (cart == null)
+    try
     {
-        return Results.NotFound();
-    }
+        var requestBody = await context.Request.ReadFromJsonAsync<PaymentMethodRequest>();
 
-    var paymentMethod = dbPaymentOptions.FirstOrDefault(po => po.Id == paymentMethodId);
-    if (paymentMethod == null)
+        Console.WriteLine($"📥 Received Payment Request: UserId={requestBody?.UserId}, PaymentMethodId={requestBody?.PaymentMethodId}");
+
+        if (requestBody == null || string.IsNullOrEmpty(requestBody.UserId) || requestBody.PaymentMethodId <= 0)
+        {
+            Console.WriteLine("❌ Invalid request data");
+            return Results.BadRequest("Invalid request data.");
+        }
+
+        var cart = db.Carts.FirstOrDefault(c => c.UserId == requestBody.UserId);
+
+        if (cart == null)
+        {
+            Console.WriteLine("❌ Cart not found.");
+            return Results.NotFound("Cart not found.");
+        }
+
+        cart.UserPaymentMethodId = requestBody.PaymentMethodId;
+        db.SaveChanges();
+
+        Console.WriteLine("✅ Payment method successfully added.");
+        return Results.Ok(cart);
+    }
+    catch (Exception ex)
     {
-        return Results.BadRequest("Invalid payment method.");
+        Console.WriteLine($"❌ Exception: {ex.Message}");
+        return Results.Problem("Internal server error.");
     }
-
-    cart.UserPaymentMethodId = paymentMethodId;
-    db.SaveChanges();
-
-    return Results.Ok(new { Message = "Payment method added to cart.", PaymentMethod = paymentMethod });
 });
 
 // DELETE Item from Cart
