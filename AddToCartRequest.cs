@@ -1,9 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
-
-namespace Bangazon.Models;
-
 public class AddToCartRequest
 {
   public string UserId { get; set; } = "";
